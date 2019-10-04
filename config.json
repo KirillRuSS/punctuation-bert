@@ -3,7 +3,11 @@
   "sentence_limit": 1000,
   "max_sentence_len": 512,
 
-  "vocab_path": "multi_cased_L-12_H-768_A-12\\vocab.txt",
+  "model_path": "C:\\Users\\79105\\Documents\\GitHub\\punctuation-bert\\multi_cased_L-12_H-768_A-12",
+  "config_path": "bert_config.json",
+  "checkpoint_path": "bert_model.ckpt",
+  "vocab_path": "vocab.txt",
+
   "punctuation_marks": [ 1, 131, 117 ],
   "sign_hiding_probability": 0.15
 }

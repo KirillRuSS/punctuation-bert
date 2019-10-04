@@ -1,3 +1,5 @@
 from dataset import Dataset
+from model import Model
 
-Dataset()
+data = Dataset()
+model = Model()

@@ -1,21 +1,18 @@
 from keras_bert import load_trained_model_from_checkpoint
 from utils import tokenization
 
+import config as cf
 
 
-folder = "multi_cased_L-12_H-768_A-12"
+class Model:
+    def __init__(self):
+        # создаем объект для перевода строки с пробелами в токены
+        self.tokenizer = tokenization.FullTokenizer(vocab_file=cf.VOCAB_PATH, do_lower_case=False)
 
-config_path = folder+'/bert_config.json'
-checkpoint_path = folder+'/bert_model.ckpt'
-vocab_path = folder+'/vocab.txt'
-
-# создаем объект для перевода строки с пробелами в токены
-tokenizer = tokenization.FullTokenizer(vocab_file=vocab_path, do_lower_case=False)
-
-# загружаем модель
-print('Loading model...')
-model = load_trained_model_from_checkpoint(config_path, checkpoint_path, training=True)
-model.summary()          # информация о слоях нейросети - количество параметров и т.д.
-print('OK')
+        # загружаем модель
+        print('Loading model...')
+        self.model = load_trained_model_from_checkpoint(cf.CONFIG_PATH, cf.CHECKPOINT_PATH, training=True)
+        self.model.summary()
+        print('OK')
 
 
