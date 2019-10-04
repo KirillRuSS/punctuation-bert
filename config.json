@@ -1,0 +1,9 @@
+{
+  "data_dir": "C:\\Users\\79105\\Documents\\DataSets\\wiki",
+  "sentence_limit": 1000,
+  "max_sentence_len": 512,
+
+  "vocab_path": "multi_cased_L-12_H-768_A-12\\vocab.txt",
+  "punctuation_marks": [ 1, 131, 117 ],
+  "sign_hiding_probability": 0.15
+}
