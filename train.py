@@ -1,5 +1,6 @@
 from dataset import Dataset
 from model import Model
+import numpy as np
 
 data = Dataset()
 model = Model()

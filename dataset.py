@@ -4,7 +4,7 @@ from copy import copy
 from tensorflow.contrib.learn.python.learn.estimators._sklearn import train_test_split
 
 import config as cf
-from utils import tokenization
+from BERT import tokenization
 from utils.utils import strip_accents, is_mark_known
 
 

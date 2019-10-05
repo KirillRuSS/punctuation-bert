@@ -1,5 +1,5 @@
 from keras_bert import load_trained_model_from_checkpoint
-from utils import tokenization
+from BERT import tokenization
 
 import config as cf
 
