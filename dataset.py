@@ -5,7 +5,7 @@ from tensorflow.contrib.learn.python.learn.estimators._sklearn import train_test
 
 import config as cf
 from BERT import tokenization
-from utils.utils import strip_accents, is_mark_known
+from BERT.utils import strip_accents, is_mark_known
 
 
 class Dataset:

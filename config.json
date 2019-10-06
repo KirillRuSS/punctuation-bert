@@ -8,6 +8,5 @@
   "checkpoint_path": "bert_model.ckpt",
   "vocab_path": "vocab.txt",
 
-  "punctuation_marks": [ 1, 131, 117 ],
-  "sign_hiding_probability": 0.15
+  "punctuation_token": [ ",", "[SPACE]" ]
 }
