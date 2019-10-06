@@ -9,5 +9,5 @@
   "vocab_path": "vocab.txt",
 
   "punctuation_token": [ ",", "[SPACE]" ],
-  "main_directory": "content\\"
+  "main_directory": "\\content\\"
 }
