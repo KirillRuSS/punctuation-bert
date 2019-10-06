@@ -2,7 +2,7 @@ import json
 import os
 import random
 
-__json = json.load(open('punctuation-bert\\config.json', 'r'))
+__json = json.load(open('config.json', 'r'))
 
 DATA_DIR = __json.get('data_dir')
 SENTENCE_LIMIT = __json.get('sentence_limit')

@@ -28,21 +28,21 @@ FLAGS = flags.FLAGS
 
 ## Required parameters
 flags.DEFINE_string(
-    "bert_config_file", "punctuation-bert\\multi_cased_L-12_H-768_A-12\\bert_config.json",
+    "bert_config_file", "multi_cased_L-12_H-768_A-12\\bert_config.json",
     "The config json file corresponding to the pre-trained BERT model. "
     "This specifies the model architecture.")
 
 flags.DEFINE_string(
-    "input_file", "punctuation-bert\\data\\train\\train",
+    "input_file", "data\\train\\train",
     "Input TF example files (can be a glob or comma separated).")
 
 flags.DEFINE_string(
-    "output_dir", "punctuation-bert\\data\\punctuation_model",
+    "output_dir", "data\\punctuation_model",
     "The output directory where the model checkpoints will be written.")
 
 ## Other parameters
 flags.DEFINE_string(
-    "init_checkpoint", "punctuation-bert\\multi_cased_L-12_H-768_A-12\\bert_model.ckpt",
+    "init_checkpoint", "multi_cased_L-12_H-768_A-12\\bert_model.ckpt",
     "Initial checkpoint (usually from a pre-trained BERT model).")
 
 flags.DEFINE_integer(
