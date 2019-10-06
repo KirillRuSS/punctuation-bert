@@ -14,5 +14,6 @@ CHECKPOINT_PATH = os.path.join(MODEL_PATH, __json.get('checkpoint_path'))
 VOCAB_PATH = os.path.join(MODEL_PATH, __json.get('vocab_path'))
 
 PUNCTUATION_TOKEN = __json.get('punctuation_token')
+MAIN_DIRECTORY = __json.get('main_directory')
 
 random.seed(20)

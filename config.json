@@ -8,5 +8,6 @@
   "checkpoint_path": "bert_model.ckpt",
   "vocab_path": "vocab.txt",
 
-  "punctuation_token": [ ",", "[SPACE]" ]
+  "punctuation_token": [ ",", "[SPACE]" ],
+  "main_directory": "content\\"
 }

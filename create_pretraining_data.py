@@ -22,19 +22,20 @@ import collections
 import random
 from BERT import tokenization, utils
 import tensorflow as tf
+import config as cf
 
 flags = tf.flags
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string("input_file", "data\\input\\1.txt",
+flags.DEFINE_string("input_file", cf.MAIN_DIRECTORY + "data\\input\\1.txt",
                     "Input raw text file (or comma-separated list of files).")
 
 flags.DEFINE_string(
-    "output_file", "data\\train\\train",
+    "output_file", cf.MAIN_DIRECTORY + "data\\train\\train",
     "Output TF example file (or comma-separated list of files).")
 
-flags.DEFINE_string("vocab_file", "multi_cased_L-12_H-768_A-12\\vocab.txt",
+flags.DEFINE_string("vocab_file", cf.MAIN_DIRECTORY + "multi_cased_L-12_H-768_A-12\\vocab.txt",
                     "The vocabulary file that the BERT model was trained on.")
 
 flags.DEFINE_float(
