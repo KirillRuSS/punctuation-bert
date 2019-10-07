@@ -1,13 +1,7 @@
 {
   "data_dir": "/home/kirill/Документы/datasets/wiki",
-  "sentence_limit": 1000,
-  "max_sentence_len": 512,
-
-  "model_path": "/home/kirill/GitHub/punctuation-bert/multi_cased_L-12_H-768_A-12",
-  "config_path": "bert_config.json",
-  "checkpoint_path": "bert_model.ckpt",
-  "vocab_path": "vocab.txt",
 
   "punctuation_token": [ ",", "[SPACE]" ],
-  "main_directory": "/content/"
+  "masked_token": [ "," ],
+  "main_directory": "/home/kirill/punctuation-bert/"
 }

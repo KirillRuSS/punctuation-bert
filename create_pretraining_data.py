@@ -28,11 +28,11 @@ flags = tf.flags
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string("input_file", cf.MAIN_DIRECTORY + "data/input/1.txt",
+flags.DEFINE_string("input_file", cf.MAIN_DIRECTORY + "data/input/train.txt",
                     "Input raw text file (or comma-separated list of files).")
 
 flags.DEFINE_string(
-    "output_file", cf.MAIN_DIRECTORY + "data/train/train",
+    "output_file", cf.MAIN_DIRECTORY + "data/test/test",
     "Output TF example file (or comma-separated list of files).")
 
 flags.DEFINE_string("vocab_file", cf.MAIN_DIRECTORY + "multi_cased_L-12_H-768_A-12/vocab.txt",
@@ -384,7 +384,7 @@ def create_masked_lm_predictions(tokens, masked_lm_prob,
         # Note that Whole Word Masking does *not* change the training code
         # at all -- we still predict each WordPiece independently, softmaxed
         # over the entire vocabulary.
-        if (utils.is_punctuation_token(token)):
+        if (utils.is_masked_token(token)):
             cand_indexes.append([i])
 
     rng.shuffle(cand_indexes)

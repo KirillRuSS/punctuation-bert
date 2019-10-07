@@ -13,3 +13,9 @@ def is_punctuation_token(token: str) -> bool:
         if token == mark:
             return True
     return False
+
+def is_masked_token(token: str) -> bool:
+    for mark in cf.MASKED_TOKEN:
+        if token == mark:
+            return True
+    return False

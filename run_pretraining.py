@@ -35,7 +35,7 @@ flags.DEFINE_string(
     "This specifies the model architecture.")
 
 flags.DEFINE_string(
-    "input_file", cf.MAIN_DIRECTORY + "data/train/train",
+    "input_file", cf.MAIN_DIRECTORY + "data/test/test",
     "Input TF example files (can be a glob or comma separated).")
 
 flags.DEFINE_string(
@@ -44,7 +44,7 @@ flags.DEFINE_string(
 
 ## Other parameters
 flags.DEFINE_string(
-    "init_checkpoint", "multi_cased_L-12_H-768_A-12/bert_model.ckpt",
+    "init_checkpoint", cf.MAIN_DIRECTORY + "/punctuation_model/model.ckpt-2000",
     "Initial checkpoint (usually from a pre-trained BERT model).")
 
 flags.DEFINE_integer(
