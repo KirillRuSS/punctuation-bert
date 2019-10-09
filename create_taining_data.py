@@ -1,5 +1,5 @@
 import os
-
+import string
 import config as cf
 
 
@@ -13,13 +13,15 @@ def get_files_paths(data_dir: str) -> list:
     return files
 
 if __name__ == "__main__":
-    files_paths = get_files_paths(cf.DATA_DIR)
 
-    input_file = ""
-    for files_path in files_paths:
-        input_file += files_path + ","
+    for i in string.ascii_uppercase:
+        files_paths = get_files_paths(cf.DATA_DIR + i)
 
-    print(input_file)
+        input_file = ""
+        for files_path in files_paths:
+            input_file += files_path + ","
 
-    output_file = "C:/Users/79105/Documents/GitHub/punctuation-bert/data/train/wiki_train"
-    os.system('python create_pretraining_data.py -input_file=' + input_file + " -output_file=" + output_file)
+        print(input_file)
+
+        output_file = "C:/Users/79105/Documents/GitHub/punctuation-bert/data/train/wiki_train_A" + i
+        os.system('python create_pretraining_data.py -input_file=' + input_file + " -output_file=" + output_file)

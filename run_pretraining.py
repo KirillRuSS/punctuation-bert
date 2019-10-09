@@ -30,21 +30,21 @@ FLAGS = flags.FLAGS
 
 ## Required parameters
 flags.DEFINE_string(
-    "bert_config_file", cf.MAIN_DIRECTORY + "multi_cased_L-12_H-768_A-12/bert_config.json",
+    "bert_config_file", cf.MAIN_DIRECTORY + cf.bert_config_file,
     "The config json file corresponding to the pre-trained BERT model. "
     "This specifies the model architecture.")
 
 flags.DEFINE_string(
-    "input_file", cf.MAIN_DIRECTORY + "data/test/test",
+    "input_file", cf.MAIN_DIRECTORY + cf.input_file,
     "Input TF example files (can be a glob or comma separated).")
 
 flags.DEFINE_string(
-    "output_dir", cf.MAIN_DIRECTORY + "data/punctuation_model",
+    "output_dir", cf.MAIN_DIRECTORY + cf.output_dir,
     "The output directory where the model checkpoints will be written.")
 
 ## Other parameters
 flags.DEFINE_string(
-    "init_checkpoint", cf.MAIN_DIRECTORY + "multi_cased_L-12_H-768_A-12/bert_model.ckpt",
+    "init_checkpoint", cf.MAIN_DIRECTORY + cf.init_checkpoint,
     "Initial checkpoint (usually from a pre-trained BERT model).")
 
 flags.DEFINE_integer(
@@ -58,9 +58,9 @@ flags.DEFINE_integer(
     "Maximum number of masked LM predictions per sequence. "
     "Must match data generation.")
 
-flags.DEFINE_bool("do_train", False, "Whether to run training.")
+flags.DEFINE_bool("do_train", cf.do_train, "Whether to run training.")
 
-flags.DEFINE_bool("do_eval", True, "Whether to run eval on the dev set.")
+flags.DEFINE_bool("do_eval", cf.do_eval, "Whether to run eval on the dev set.")
 
 flags.DEFINE_integer("train_batch_size", 32, "Total batch size for training.")
 

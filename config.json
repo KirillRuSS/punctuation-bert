@@ -1,6 +1,17 @@
 {
-  "data_dir": "C:\\Users\\79105\\Documents\\DataSets\\wiki\\AA",
+  "data_dir": "C:\\Users\\79105\\Documents\\DataSets\\wiki\\A",
   "punctuation_token": [ ",", "[SPACE]" ],
   "masked_token": [ ",", "[SPACE]" ],
-  "main_directory": "C:\\Users\\79105\\Documents\\GitHub\\punctuation-bert\\"
+
+
+  "main_directory": "C:\\Users\\79105\\Documents\\GitHub\\punctuation-bert\\",
+
+  "run_pretraining_config":{
+    "bert_config_file": "multi_cased_L-12_H-768_A-12/bert_config.json",
+    "input_file": "data/test/test",
+    "output_dir": "data/punctuation_model",
+    "init_checkpoint": "multi_cased_L-12_H-768_A-12/bert_model.ckpt",
+    "do_train": "False",
+    "do_eval": "True"
+  }
 }
