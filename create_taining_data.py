@@ -18,7 +18,7 @@ if __name__ == "__main__":
     input_file = ""
     for files_path in files_paths:
         input_file += files_path + ","
-        break
+
     print(input_file)
 
     output_file = "C:/Users/79105/Documents/GitHub/punctuation-bert/data/train/wiki_train"
