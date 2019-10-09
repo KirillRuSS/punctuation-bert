@@ -35,7 +35,7 @@ flags.DEFINE_string(
     "This specifies the model architecture.")
 
 flags.DEFINE_string(
-    "input_file", cf.MAIN_DIRECTORY + cf.input_file,
+    "input_file", cf.input_file,
     "Input TF example files (can be a glob or comma separated).")
 
 flags.DEFINE_string(
