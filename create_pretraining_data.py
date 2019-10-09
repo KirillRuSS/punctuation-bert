@@ -28,18 +28,18 @@ flags = tf.flags
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string("input_file", cf.MAIN_DIRECTORY + "data/input/train.txt",
+flags.DEFINE_string("input_file", "C:\\Users\\79105\\Documents\\DataSets\\wiki\\AA\\wiki_00.txt",
                     "Input raw text file (or comma-separated list of files).")
 
 flags.DEFINE_string(
-    "output_file", cf.MAIN_DIRECTORY + "data/test/test",
+    "output_file", cf.MAIN_DIRECTORY + "data/train/train",
     "Output TF example file (or comma-separated list of files).")
 
 flags.DEFINE_string("vocab_file", cf.MAIN_DIRECTORY + "multi_cased_L-12_H-768_A-12/vocab.txt",
                     "The vocabulary file that the BERT model was trained on.")
 
 flags.DEFINE_float(
-    "probability_replace_with_MASK", 0.8,
+    "probability_replace_with_MASK", 0.9,
     "The probability of replacing the selected token with a mask")
 
 flags.DEFINE_bool(
@@ -58,10 +58,10 @@ flags.DEFINE_bool(
 
 flags.DEFINE_integer("max_seq_length", 128, "Maximum sequence length.")
 
-flags.DEFINE_integer("max_predictions_per_seq", 20,
+flags.DEFINE_integer("max_predictions_per_seq", 40,
                      "Maximum number of masked LM predictions per sequence.")
 
-flags.DEFINE_integer("random_seed", 12345, "Random seed for data generation.")
+flags.DEFINE_integer("random_seed", 42, "Random seed for data generation.")
 
 flags.DEFINE_integer(
     "dupe_factor", 10,
@@ -371,36 +371,29 @@ def create_masked_lm_predictions(tokens, masked_lm_prob,
     """Creates the predictions for the masked LM objective."""
 
     cand_indexes = []
+    punctuation_cand_indexes = []
     for (i, token) in enumerate(tokens):
         if token == "[CLS]" or token == "[SEP]":
             continue
-        # Вместо дабовления всех токенов в cand_indexes, ограничимся только разделительными знаками
-        # Whole Word Masking means that if we mask all of the wordpieces
-        # corresponding to an original word. When a word has been split into
-        # WordPieces, the first token does not have any marker and any subsequence
-        # tokens are prefixed with ##. So whenever we see the ## token, we
-        # append it to the previous set of word indexes.
-        #
-        # Note that Whole Word Masking does *not* change the training code
-        # at all -- we still predict each WordPiece independently, softmaxed
-        # over the entire vocabulary.
-        if (utils.is_masked_token(token)):
+
+        if not utils.is_masked_token(token):
             cand_indexes.append([i])
+        else:
+            punctuation_cand_indexes.append([i])
 
     rng.shuffle(cand_indexes)
+    rng.shuffle(punctuation_cand_indexes)
 
     output_tokens = list(tokens)
-
     num_to_predict = min(max_predictions_per_seq,
                          max(1, int(round(len(tokens) * masked_lm_prob))))
 
     masked_lms = []
     covered_indexes = set()
     for index_set in cand_indexes:
-        if len(masked_lms) >= num_to_predict:
+        if len(masked_lms) >= num_to_predict / 2:
             break
-        # If adding a whole-word mask would exceed the maximum number of
-        # predictions, then just skip this candidate.
+
         if len(masked_lms) + len(index_set) > num_to_predict:
             continue
         is_any_index_covered = False
@@ -415,7 +408,7 @@ def create_masked_lm_predictions(tokens, masked_lm_prob,
 
             masked_token = None
             # 80% of the time, replace with [MASK]
-            if rng.random() < FLAGS.probability_replace_with_MASK:
+            if rng.random() < 0.8:
                 masked_token = "[MASK]"
             else:
                 # 10% of the time, keep original
@@ -428,7 +421,33 @@ def create_masked_lm_predictions(tokens, masked_lm_prob,
             output_tokens[index] = masked_token
 
             masked_lms.append(MaskedLmInstance(index=index, label=tokens[index]))
+
     assert len(masked_lms) <= num_to_predict
+
+    for index_set in punctuation_cand_indexes:
+        if len(masked_lms) >= num_to_predict:
+            break
+
+        is_any_index_covered = False
+        for index in index_set:
+            if index in covered_indexes:
+                is_any_index_covered = True
+                break
+        if is_any_index_covered:
+            continue
+        for index in index_set:
+            covered_indexes.add(index)
+
+            masked_token = None
+            if rng.random() < FLAGS.probability_replace_with_MASK:
+                masked_token = "[PMASK]"
+            else:
+                masked_token = tokens[index]
+
+            output_tokens[index] = masked_token
+
+            masked_lms.append(MaskedLmInstance(index=index, label=tokens[index]))
+
     masked_lms = sorted(masked_lms, key=lambda x: x.index)
 
     masked_lm_positions = []

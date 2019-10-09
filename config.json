@@ -1,7 +1,6 @@
 {
-  "data_dir": "/home/kirill/Документы/datasets/wiki",
-
+  "data_dir": "C:\\Users\\79105\\Documents\\DataSets\\wiki\\AA",
   "punctuation_token": [ ",", "[SPACE]" ],
-  "masked_token": [ "," ],
-  "main_directory": "/home/kirill/punctuation-bert/"
+  "masked_token": [ ",", "[SPACE]" ],
+  "main_directory": "C:\\Users\\79105\\Documents\\GitHub\\punctuation-bert\\"
 }
