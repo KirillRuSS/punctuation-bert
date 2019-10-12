@@ -54,6 +54,7 @@ def validate(main_directory: str,
 
         # Если появилсь новая модель, то тестируем её
         if global_step > step:
+            time.sleep(30)
             step = global_step
 
             for input_file in input_files:
@@ -129,6 +130,7 @@ def run(main_directory: str,
     train_thread.join()
     validation_thread.join()
 
+
 """
 run(main_directory="C:/Users/79105/Documents/GitHub/punctuation-bert/",
     bert_config_file="multi_cased_L-12_H-768_A-12/bert_config.json",
@@ -139,7 +141,26 @@ run(main_directory="C:/Users/79105/Documents/GitHub/punctuation-bert/",
     init_checkpoint="multi_cased_L-12_H-768_A-12/bert_model.ckpt",
     train_batch_size=1,
     eval_batch_size=1,
-    num_train_steps=1,
+    num_train_steps=2,
     num_warmup_steps=1,
     save_checkpoints_steps=1)
 """
+import string
+input_file = []
+for l in string.ascii_uppercase:
+    input_file.append("data/train/wiki/wiki_train_A" + l)
+    input_file.append("data/train/wiki/wiki_train_B" + l)
+
+
+run(main_directory="/content/",
+    bert_config_file="pm_2000/bert_config.json",
+    input_file=input_file,
+    validation_file=["data/test/wiki_test", "data/test/wiki_test_p", "data/test/wiki_test_s"],
+    output_dir="data/punctuation_model",
+    evaluate_result_dir="data/punctuation_model",
+    init_checkpoint="pm_2000/model.ckpt-35000",
+    train_batch_size=12,
+    eval_batch_size=4,
+    num_train_steps=100000,
+    num_warmup_steps=1000,
+    save_checkpoints_steps=500)

@@ -508,9 +508,10 @@ def run(main_directory: str,
     FLAGS.bert_config_file = os.path.join(main_directory, bert_config_file)
 
     if type(input_file) == list:
-        FLAGS.input_file = ""
+        str_input_file = ""
         for file in input_file:
-            FLAGS.input_file += os.path.join(main_directory, file) + ','
+            str_input_file += os.path.join(main_directory, file) + ','
+        FLAGS.input_file = str_input_file
     else:
         FLAGS.input_file = os.path.join(main_directory, input_file)
 
@@ -534,7 +535,4 @@ def run(main_directory: str,
 
 
 if __name__ == "__main__":
-    # flags.mark_flag_as_required("input_file")
-    # flags.mark_flag_as_required("bert_config_file")
-    # flags.mark_flag_as_required("output_dir")
     tf.app.run()
