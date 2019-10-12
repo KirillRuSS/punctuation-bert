@@ -390,6 +390,7 @@ def create_masked_lm_predictions(tokens, masked_lm_prob,
 
     masked_lms = []
     covered_indexes = set()
+
     for index_set in cand_indexes:
         if len(masked_lms) >= num_to_predict / 2:
             break

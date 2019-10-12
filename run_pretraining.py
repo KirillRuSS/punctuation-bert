@@ -28,23 +28,25 @@ flags = tf.flags
 
 FLAGS = flags.FLAGS
 
+evaluate_result = None
+
 ## Required parameters
 flags.DEFINE_string(
-    "bert_config_file", cf.MAIN_DIRECTORY + cf.bert_config_file,
+    "bert_config_file", cf.MAIN_DIRECTORY + "multi_cased_L-12_H-768_A-12/bert_config.json",
     "The config json file corresponding to the pre-trained BERT model. "
     "This specifies the model architecture.")
 
 flags.DEFINE_string(
-    "input_file", cf.input_file,
+    "input_file", cf.MAIN_DIRECTORY + "data/test/wiki_test_p",
     "Input TF example files (can be a glob or comma separated).")
 
 flags.DEFINE_string(
-    "output_dir", cf.MAIN_DIRECTORY + cf.output_dir,
+    "output_dir", cf.MAIN_DIRECTORY + "data/punctuation_model",
     "The output directory where the model checkpoints will be written.")
 
 ## Other parameters
 flags.DEFINE_string(
-    "init_checkpoint", cf.MAIN_DIRECTORY + cf.init_checkpoint,
+    "init_checkpoint", cf.MAIN_DIRECTORY + "multi_cased_L-12_H-768_A-12/bert_model.ckpt",
     "Initial checkpoint (usually from a pre-trained BERT model).")
 
 flags.DEFINE_integer(
@@ -58,9 +60,9 @@ flags.DEFINE_integer(
     "Maximum number of masked LM predictions per sequence. "
     "Must match data generation.")
 
-flags.DEFINE_bool("do_train", cf.do_train, "Whether to run training.")
+flags.DEFINE_bool("do_train", False, "Whether to run training.")
 
-flags.DEFINE_bool("do_eval", cf.do_eval, "Whether to run eval on the dev set.")
+flags.DEFINE_bool("do_eval", True, "Whether to run eval on the dev set.")
 
 flags.DEFINE_integer("train_batch_size", 32, "Total batch size for training.")
 
@@ -479,12 +481,57 @@ def main(_):
         result = estimator.evaluate(
             input_fn=eval_input_fn, steps=FLAGS.max_eval_steps)
 
+        global evaluate_result
+
         output_eval_file = os.path.join(FLAGS.output_dir, "eval_results.txt")
         with tf.gfile.GFile(output_eval_file, "w") as writer:
             tf.logging.info("***** Eval results *****")
             for key in sorted(result.keys()):
+                evaluate_result[key] = result[key]
                 tf.logging.info("  %s = %s", key, str(result[key]))
                 writer.write("%s = %s\n" % (key, str(result[key])))
+
+
+def run(main_directory: str,
+        bert_config_file: str,
+        input_file: list,
+        output_dir: str,
+        init_checkpoint: str,
+        do_train: bool = False,
+        do_eval: bool = False,
+        train_batch_size: int = 16,
+        eval_batch_size: int = 8,
+        num_train_steps: int = 100000,
+        num_warmup_steps: int = 1000,
+        save_checkpoints_steps: int = 1000,
+        result: dict = {}):
+    FLAGS.bert_config_file = os.path.join(main_directory, bert_config_file)
+
+    if type(input_file)==list:
+        for file in input_file:
+            FLAGS.input_file += os.path.join(main_directory, file) + ','
+    else:
+        FLAGS.input_file = os.path.join(main_directory, input_file)
+
+    FLAGS.output_dir = output_dir
+
+
+    if init_checkpoint is not None:
+        FLAGS.init_checkpoint = os.path.join(main_directory, init_checkpoint)
+
+    FLAGS.do_train = do_train
+    FLAGS.do_eval = do_eval
+    FLAGS.train_batch_size = train_batch_size
+    FLAGS.eval_batch_size = eval_batch_size
+    FLAGS.num_train_steps = num_train_steps
+    FLAGS.num_warmup_steps = num_warmup_steps
+    FLAGS.save_checkpoints_steps = save_checkpoints_steps
+
+    global evaluate_result
+    evaluate_result = result
+
+    tf.app.run(main)
+
 
 
 if __name__ == "__main__":

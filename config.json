@@ -4,14 +4,5 @@
   "masked_token": [ ",", "[SPACE]" ],
 
 
-  "main_directory": "/content/",
-
-
-    "bert_config_file": "multi_cased_L-12_H-768_A-12/bert_config.json",
-    "input_file": "/content/data/train/wiki/wiki_train_AA,/content/data/train/wiki/wiki_train_AB,/content/data/train/wiki/wiki_train_AC,/content/data/train/wiki/wiki_train_AD,/content/data/train/wiki/wiki_train_AE,/content/data/train/wiki/wiki_train_AF,/content/data/train/wiki/wiki_train_AG,/content/data/train/wiki/wiki_train_AH,/content/data/train/wiki/wiki_train_AI,/content/data/train/wiki/wiki_train_AJ,/content/data/train/wiki/wiki_train_AK,/content/data/train/wiki/wiki_train_AL,/content/data/train/wiki/wiki_train_AM,/content/data/train/wiki/wiki_train_AN",
-    "output_dir": "data/punctuation_model",
-    "init_checkpoint": "multi_cased_L-12_H-768_A-12/bert_model.ckpt",
-    "do_train": "True",
-    "do_eval": "True"
-  
+  "main_directory": "/content/"
 }
