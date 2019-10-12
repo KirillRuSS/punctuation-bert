@@ -507,14 +507,14 @@ def run(main_directory: str,
         result: dict = {}):
     FLAGS.bert_config_file = os.path.join(main_directory, bert_config_file)
 
-    if type(input_file)==list:
+    if type(input_file) == list:
+        FLAGS.input_file = ""
         for file in input_file:
             FLAGS.input_file += os.path.join(main_directory, file) + ','
     else:
         FLAGS.input_file = os.path.join(main_directory, input_file)
 
     FLAGS.output_dir = output_dir
-
 
     if init_checkpoint is not None:
         FLAGS.init_checkpoint = os.path.join(main_directory, init_checkpoint)
@@ -531,7 +531,6 @@ def run(main_directory: str,
     evaluate_result = result
 
     tf.app.run(main)
-
 
 
 if __name__ == "__main__":
