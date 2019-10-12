@@ -129,7 +129,7 @@ def run(main_directory: str,
     # train_thread.join()
     validation_thread.join()
 
-
+"""
 run(main_directory="C:/Users/79105/Documents/GitHub/punctuation-bert/",
     bert_config_file="multi_cased_L-12_H-768_A-12/bert_config.json",
     input_file=["data/train/wiki_train_AA"],
@@ -142,3 +142,4 @@ run(main_directory="C:/Users/79105/Documents/GitHub/punctuation-bert/",
     num_train_steps=1,
     num_warmup_steps=1,
     save_checkpoints_steps=1)
+"""
