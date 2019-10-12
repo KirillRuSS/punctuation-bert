@@ -124,9 +124,9 @@ def run(main_directory: str,
                                                       output_dir,
                                                       eval_batch_size))
 
-    # train_thread.start()
+    train_thread.start()
     validation_thread.start()
-    # train_thread.join()
+    train_thread.join()
     validation_thread.join()
 
 """
