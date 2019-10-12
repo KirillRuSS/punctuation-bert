@@ -90,9 +90,12 @@ def validate(main_directory: str,
                 with open(evaluate_result_file, "a") as file:
                     for key in sorted(evaluate_result.keys()):
                         file.write("%.3f\t" % evaluate_result[key])
-                        tf.summary.scalar(key, evaluate_result[key])
+                        tf.summary.scalar(key + "_" + os.path.basename(input_file), evaluate_result[key])
                         writer.flush()
-                    file.write("\n")
+                    file.write("\t")
+
+            with open(evaluate_result_file, "a") as file:
+                file.write("\n")
 
 
 def run(main_directory: str,
