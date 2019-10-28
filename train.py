@@ -150,9 +150,8 @@ run(main_directory="C:/Users/79105/Documents/GitHub/punctuation-bert/",
 """
 import string
 input_file = []
-for l in string.ascii_uppercase:
-    input_file.append("data/train/wiki/wiki_train_A" + l)
-    input_file.append("data/train/wiki/wiki_train_B" + l)
+for i in range(60):
+    input_file.append("data/train/text_" + str(i))
 
 
 run(main_directory="/content/",
